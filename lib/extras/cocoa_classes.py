@@ -5,7 +5,8 @@ Creates text file of Cocoa superclasses in given filename or in
 '''
 import os
 import re
-from cocoa_definitions import write_file, find
+from cocoa_definitions import write_file, find, cocoa_frameworks, \
+    iphone_frameworks
 from commands import getoutput
 
 # We need find_headers() to return a dictionary instead of a list
@@ -53,45 +54,6 @@ def output_file(fname=None):
     if not os.path.isdir(os.path.dirname(fname)):
         os.mkdir(os.path.dirname(fname))
 
-    cocoa_frameworks = (
-        'Foundation',
-        'AppKit',
-        'AddressBook',
-        'Cocoa',
-        'CloudKit',
-        'CoreAudio',
-        'CoreData',
-        'CoreFoundation',
-        'CoreGraphics',
-        'CoreLocation',
-        'CoreServices',
-        'EventKit',
-        '',
-        'PreferencePanes',
-        'QTKit',
-        'ScreenSaver',
-        'Security',
-        'StoreKit',
-        'SyncServices',
-        'WebKit')
-    iphone_frameworks = (
-        'CFNetwork',
-        'CoreAudio',
-        'CoreData',
-        'CoreFoundation',
-        'CoreGraphics',
-        'CoreImage',
-        'CoreLocation',
-        'EventKit',
-        'EventKitUI',
-        'Foundation',
-        'MapKit',
-        'QuartzCore',
-        'Security',
-        'StoreKit',
-        'UIKit',
-        'GameKit',
-        'WebKit')
     iphone_sdk_path = '/Applications/Xcode.app/Contents/Developer/Platforms/' \
         'iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk'
     headers_and_frameworks = find_headers('', cocoa_frameworks).items() + \

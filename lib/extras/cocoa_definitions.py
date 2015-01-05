@@ -25,8 +25,7 @@ def find_headers(root_folder, frameworks):
     return headers
 
 
-def default_headers():
-    '''Headers for common Cocoa frameworks.'''
+def cocoa_frameworks():
     cocoa_frameworks = (
         'Foundation',
         'AppKit',
@@ -48,6 +47,10 @@ def default_headers():
         'StoreKit',
         'SyncServices',
         'WebKit')
+    return cocoa_frameworks
+
+
+def iphone_frameworks():
     iphone_frameworks = (
         'CFNetwork',
         'CoreAudio',
@@ -66,6 +69,11 @@ def default_headers():
         'UIKit',
         'GameKit',
         'WebKit')
+    return iphone_frameworks
+
+
+def default_headers():
+    '''Headers for common Cocoa frameworks.'''
     iphone_sdk_path = '/Applications/Xcode.app/Contents/Developer/Platforms/' \
         'iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk'
     return find_headers('', cocoa_frameworks) + \
