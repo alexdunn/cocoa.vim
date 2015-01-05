@@ -1,11 +1,14 @@
 #!/usr/bin/python
 '''Builds Vim syntax file for Cocoa keywords.'''
-import sys, datetime
+import sys
+import datetime
 import cocoa_definitions
+
 
 def usage():
     print 'usage: build_syntaxfile.py [outputfile]'
     return -1
+
 
 def generate_syntax_file():
     '''Returns a list of lines for a Vim syntax file of Cocoa keywords.'''
@@ -16,11 +19,13 @@ def generate_syntax_file():
     # we need to generate them again.
     headers = ' '.join(cocoa_definitions.default_headers())
 
-    output = \
-    ['" Description:    Syntax highlighting for the cocoa.vim plugin.',
-    '"                 Adds highlighting for Cocoa keywords (classes, types, etc.).',
-    '" Last Generated: ' + datetime.date.today().strftime('%B %d, %Y'),
-    '']
+    output = [
+        '" Description:    Syntax highlighting for the cocoa.vim plugin.',
+        '"                 Adds highlighting for Cocoa keywords',
+        '"                 (classes, types, etc.).',
+        '" Last Generated: ' +
+        datetime.date.today().strftime('%B %d, %Y'),
+        '']
 
     output += ['" Cocoa Functions',
                'syn keyword cocoaFunction containedin=objcMessage '
@@ -55,12 +60,14 @@ def generate_syntax_file():
                'hi link cocoaNotification Constant']
     return output
 
+
 def read_file(fname):
     '''Returns the lines as a string for the given filename.'''
     f = open(fname, 'r')
     lines = f.read()
     f.close()
     return lines
+
 
 def join_lines(lines):
     '''Returns string of lines with newlines converted to spaces.'''
@@ -70,15 +77,24 @@ def join_lines(lines):
         line = ([line[:-1] if line[-1] == '\n' else line for line in lines])
         return ' '.join(line)
 
+
 def get_classes(header_files):
     '''Returns @interface classes.'''
-    return cocoa_definitions.match_output("grep -ho '@interface \(NS\|UI\)[A-Za-z]*' "
-                                          + header_files, '(NS|UI)\w+', 0)
+    return cocoa_definitions.match_output(
+        "grep -ho '@interface \(NS\|UI\)[A-Za-z]*' " +
+        header_files,
+        '(NS|UI)\w+',
+        0)
+
 
 def get_protocol_classes(header_files):
     '''Returns @protocol classes.'''
-    return cocoa_definitions.match_output("grep -ho '@protocol \(NS\|UI\)[A-Za-z]*' "
-                                          + header_files, '(NS|UI)\w+', 0)
+    return cocoa_definitions.match_output(
+        "grep -ho '@protocol \(NS\|UI\)[A-Za-z]*' " +
+        header_files,
+        '(NS|UI)\w+',
+        0)
+
 
 def output_file(fname=None):
     '''Writes syntax entries to file or prints them if no file is given.'''

@@ -2,8 +2,11 @@
 '''
 Lists Cocoa methods in given file or ./cocoa_indexes/methods.txt by default.
 '''
-import re, os, gzip
+import re
+import os
+import gzip
 from cocoa_definitions import default_headers, format_function_line
+
 
 def get_methods(headers):
     '''Returns list of Cocoa methods.'''
@@ -26,9 +29,9 @@ def get_methods(headers):
                         if match not in matches:
                             matches.append(match)
         f.close()
-    matches = [format_line(line) for line in matches]
-    matches.sort()
+    matches = sorted([format_line(line) for line in matches])
     return matches
+
 
 def get_method_name(line):
     '''Returns the method name & argument types for the given line.'''
@@ -37,12 +40,14 @@ def get_method_name(line):
     else:
         return re.match(r'[-+]\s*\(.*?\)\s*(\w+)', line).group(1)
 
+
 def format_line(line):
     '''Removes parentheses/comments/unnecessary spacing for the given line.'''
     line = re.sub(r'\s*:\s*', ':', line)
     line = re.sub(r'/\*.*?\*/\s*|[()]', '', line)
     line = re.sub(r'(NS\S+)Pointer', r'\1 *', line)
     return format_function_line(line)
+
 
 def extract_file_to(fname=None):
     '''
