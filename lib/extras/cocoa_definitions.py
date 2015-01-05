@@ -75,7 +75,7 @@ def iphone_frameworks():
 def default_headers():
     '''Headers for common Cocoa frameworks.'''
     iphone_sdk_path = '/Applications/Xcode.app/Contents/Developer/Platforms/' \
-        'iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk'
+        'iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk'
     return find_headers('', cocoa_frameworks) + \
         find_headers(iphone_sdk_path, iphone_frameworks)
 
